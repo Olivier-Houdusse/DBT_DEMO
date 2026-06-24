@@ -16,7 +16,6 @@ CASE WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) in (12,1,2)
     THEN 'SUMMER'
     ELSE 'AUTUMN' 
     END AS STATION_OF_YEAR
-from is_week_end_day
 from 
     {{ source('demo', 'bike') }}
 where started_at <> 'started_at'
