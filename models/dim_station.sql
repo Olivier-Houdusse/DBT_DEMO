@@ -6,7 +6,7 @@ select distinct
     start_station_name,
     start_lat,
     start_lng
-from {{source('demo', 'bike')}}
+from {{ref('stg_bike')}}
 where ride_id <> 'ride_id'
 
 )
