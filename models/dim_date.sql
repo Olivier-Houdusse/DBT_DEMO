@@ -1,0 +1,19 @@
+WITH CTE AS (
+select
+TO_TIMESTAMP(STARTED_AT) AS STARTED_AT,
+DATE(TO_TIMESTAMP(STARTED_AT)) AS DATE_STARTED_AT,
+HOUR(TO_TIMESTAMP(STARTED_AT)) AS HOUR_STARTED_AT,
+CASE 
+WHEN DAYNAME(TO_TIMESTAMP(STARTED_AT)) in ('Sat','Sun')
+THEN 'WEEKEND'
+ELSE 'BUSINESSDAY'
+END AS DAY_TYPE,
+{{ get_season('STARTED_AT')}} AS STATION_OF_YEAR
+from 
+    {{ref('stg_bike')}}
+where started_at <> 'started_at'
+
+)
+select 
+    *
+from CTE
